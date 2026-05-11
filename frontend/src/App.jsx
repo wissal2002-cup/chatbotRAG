@@ -7,6 +7,9 @@ import AdminDashboard     from './pages/admin/Dashboard';
 import EnseignantDashboard from './pages/enseignant/Dashboard';
 import EtudiantDashboard  from './pages/etudiant/Dashboard';
 import Users from './pages/admin/Users';
+import AdminLayout from './pages/admin/Dashboard';
+import EnseignantLayout from './pages/enseignant/Dashboard';
+
 
 function App() {
   return (
@@ -17,9 +20,9 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* Admin only */}
-          <Route path="/admin/dashboard" element={
-            <PrivateRoute roles={['admin']}>
-              <AdminDashboard />
+          <Route path="/admin/*" element={
+  <PrivateRoute roles={['admin']}>
+    <AdminLayout />
             </PrivateRoute>
           }/>
           <Route path="/admin/users" element={
@@ -29,9 +32,9 @@ function App() {
             }/>
 
           {/* Enseignant only */}
-          <Route path="/enseignant/dashboard" element={
+          <Route path="/enseignant/*" element={
             <PrivateRoute roles={['enseignant']}>
-              <EnseignantDashboard />
+              <EnseignantLayout />
             </PrivateRoute>
           }/>
 
