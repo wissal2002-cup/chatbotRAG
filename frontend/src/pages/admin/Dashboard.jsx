@@ -108,7 +108,7 @@ export default function AdminLayout() {
               </div>
             </div>
             <button className="logout-btn" onClick={handleLogout} style={{width:'100%',padding:'9px',borderRadius:10,border:'none',backgroundColor:'rgba(220,38,38,0.15)',color:'#fca5a5',cursor:'pointer',fontSize:13,fontWeight:600,transition:'all 0.2s',display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
-              🚪 Se déconnecter
+              Se déconnecter
             </button>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function AdminLayout() {
           <div style={{flex:1,overflow:'auto',padding:28}}>
             <Routes>
               <Route path="dashboard" element={
-                <DashboardHome cards={cards} navigate={navigate} animIn={animIn}/>
+                <DashboardHome cards={cards} navigate={navigate} animIn={animIn} stats={stats}/>
               }/>
               <Route path="users"     element={<Users/>}/>
               <Route path="documents" element={<Documents/>}/>
@@ -147,7 +147,7 @@ export default function AdminLayout() {
   );
 }
 
-function DashboardHome({ cards, navigate, animIn }) {
+function DashboardHome({ cards, navigate, animIn, stats }) {
   return (
     <div style={{opacity:animIn?1:0,transform:animIn?'translateY(0)':'translateY(20px)',transition:'all 0.5s ease'}}>
 
@@ -191,9 +191,9 @@ function DashboardHome({ cards, navigate, animIn }) {
         <div style={{backgroundColor:'white',borderRadius:18,padding:24,boxShadow:'0 2px 16px rgba(0,0,0,0.06)'}}>
           <div style={{fontFamily:"'Syne',sans-serif",fontSize:15,fontWeight:700,color:'#0f0c29',marginBottom:18}}>👥 Répartition des rôles</div>
           {[
-            {role:'Étudiants',  color:'#7c3aed',pct:75},
-            {role:'Enseignants',color:'#0ea5e9',pct:18},
-            {role:'Admins',     color:'#10b981',pct:7},
+             { role:'Étudiants',   color:'#7c3aed', pct: stats.roles_pct?.etudiants   || 0 },
+             { role:'Enseignants', color:'#0ea5e9', pct: stats.roles_pct?.enseignants || 0 },
+             { role:'Admins',      color:'#10b981', pct: stats.roles_pct?.admins      || 0 },
           ].map((item,i) => (
             <div key={i} style={{marginBottom:14}}>
               <div style={{display:'flex',justifyContent:'space-between',marginBottom:6}}>
@@ -213,7 +213,7 @@ function DashboardHome({ cards, navigate, animIn }) {
             {label:'Frontend',       value:'React.js',      icon:'⚛️',color:'#0ea5e9'},
             {label:'Base de données',value:'MySQL',         icon:'🗄️',color:'#10b981'},
             {label:'Auth',           value:'Sanctum (JWT)', icon:'🔐',color:'#f59e0b'},
-            {label:'IA',             value:'Gemini API',    icon:'🤖',color:'#ec4899'},
+            {label:'IA',             value:'assistant IA',  icon:'🤖',color:'#ec4899'},
           ].map((info,i) => (
             <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'9px 0',borderBottom:i<4?'1px solid #f9fafb':'none'}}>
               <div style={{display:'flex',alignItems:'center',gap:8}}>

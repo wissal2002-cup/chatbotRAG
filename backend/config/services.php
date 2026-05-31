@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'ai' => [
+        'api_key' => env('AI_API_KEY'),
+        'model'   => env('AI_MODEL', 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free'),
+        'name'    => env('AI_MODEL_NAME', 'Assistant IA'),
+    ],
+
 ];

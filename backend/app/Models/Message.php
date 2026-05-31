@@ -11,7 +11,7 @@ class Message extends Model
         'document_id',
         'role',
         'content',
-        'gemini_model',
+        'ai_model',
         'tokens_used',
     ];
 

@@ -7,7 +7,6 @@ export function AuthProvider({ children }) {
   const [user, setUser]       = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check if user is already logged in on page refresh
   useEffect(() => {
     const token = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
@@ -28,11 +27,17 @@ export function AuthProvider({ children }) {
     return user;
   };
 
+  // ✅ logout est bien une fonction const
   const logout = async () => {
-    await api.post('/logout');
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
+    try {
+      await api.post('/logout');
+    } catch (err) {
+      console.log('Token expired:', err.response?.status);
+    } finally {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setUser(null);
+    }
   };
 
   return (

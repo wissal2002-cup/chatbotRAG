@@ -2,6 +2,8 @@ import { useNavigate, Routes, Route, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Upload from './Upload';
 import MesDocuments from './MesDocuments';
+import TestAI from './TestAI';
+
 
 export default function EnseignantLayout() {
   const { user, logout } = useAuth();
@@ -12,7 +14,7 @@ export default function EnseignantLayout() {
     { icon:'⊞',  label:'Dashboard',     path:'/enseignant/dashboard' },
     { icon:'📤', label:'Uploader PDF',   path:'/enseignant/upload' },
     { icon:'📄', label:'Mes documents',  path:'/enseignant/documents' },
-    { icon:'🤖', label:'Tester Gemini',  path:'/enseignant/test' },
+    { icon:'🤖', label:'Tester AI Assistant',  path:'/enseignant/test' },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -25,7 +27,7 @@ export default function EnseignantLayout() {
   const pageTitle = () => {
     if (location.pathname === '/enseignant/upload')    return 'Uploader un PDF';
     if (location.pathname === '/enseignant/documents') return 'Mes Documents';
-    if (location.pathname === '/enseignant/test')      return 'Tester Gemini';
+    if (location.pathname === '/enseignant/test')      return 'Tester AI Assistant';
     return 'Tableau de bord';
   };
 
@@ -80,7 +82,7 @@ export default function EnseignantLayout() {
               </div>
             </div>
             <button className="logout-btn" onClick={handleLogout} style={{width:'100%',padding:'9px',borderRadius:10,border:'none',backgroundColor:'rgba(220,38,38,0.15)',color:'#fca5a5',cursor:'pointer',fontSize:13,fontWeight:600,transition:'all 0.2s',display:'flex',alignItems:'center',justifyContent:'center',gap:6}}>
-              🚪 Se déconnecter
+               Se déconnecter
             </button>
           </div>
         </div>
@@ -100,8 +102,9 @@ export default function EnseignantLayout() {
           <div style={{flex:1,overflow:'auto',padding:28}}>
             <Routes>
               <Route path="dashboard" element={<EnseignantHome navigate={navigate}/>}/>
-              <Route path="upload"    element={<Upload/>}/>
-              <Route path="documents" element={<MesDocuments/>}/>
+              <Route path="upload"    element={<Upload />}/>
+              <Route path="documents" element={<MesDocuments />}/>
+              <Route path="test" element={<TestAI />}/>
             </Routes>
           </div>
         </div>
@@ -117,7 +120,7 @@ function EnseignantHome({ navigate }) {
         {[
           {icon:'📤',label:'Uploader un PDF',   desc:'Ajouter un nouveau cours',            color:'#0ea5e9',bg:'#f0f9ff',path:'/enseignant/upload'},
           {icon:'📄',label:'Mes documents',      desc:'Voir et gérer vos cours uploadés',    color:'#7c3aed',bg:'#f5f3ff',path:'/enseignant/documents'},
-          {icon:'🤖',label:'Tester Gemini',      desc:'Tester les réponses sur vos cours',   color:'#10b981',bg:'#f0fdf4',path:'/enseignant/test'},
+          {icon:'🤖',label:'Tester AI Assistant',      desc:'Tester les réponses sur vos cours',   color:'#10b981',bg:'#f0fdf4',path:'/enseignant/test'},
         ].map((a,i) => (
           <button key={i} onClick={() => navigate(a.path)} style={{display:'flex',flexDirection:'column',alignItems:'flex-start',gap:12,padding:'24px',borderRadius:16,border:`1px solid ${a.bg}`,backgroundColor:a.bg,cursor:'pointer',textAlign:'left',boxShadow:'0 2px 8px rgba(0,0,0,0.04)',transition:'all 0.25s'}}>
             <div style={{width:50,height:50,borderRadius:14,backgroundColor:'white',display:'flex',alignItems:'center',justifyContent:'center',fontSize:26,boxShadow:'0 2px 8px rgba(0,0,0,0.08)'}}>{a.icon}</div>

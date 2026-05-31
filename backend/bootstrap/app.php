@@ -24,7 +24,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleMiddleware::class,
         ]);
 
+
+        $middleware->redirectGuestsTo(fn() => response()->json([
+        'message' => 'Unauthenticated'
+    ], 401));
+
     })
+    
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

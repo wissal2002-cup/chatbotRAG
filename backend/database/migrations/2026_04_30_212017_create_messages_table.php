@@ -21,7 +21,7 @@ return new class extends Migration
               ->onDelete('cascade');
         $table->enum('role', ['user', 'assistant']);
         $table->text('content');
-        $table->string('gemini_model')->nullable();
+        $table->string('ai_model')->nullable();
         $table->integer('tokens_used')->nullable();
         $table->timestamps();
         });
